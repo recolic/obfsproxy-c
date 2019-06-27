@@ -21,6 +21,7 @@
 #include <openssl/opensslv.h>
 #include <openssl/err.h>
 #include <openssl/rand.h>
+#include <openssl/modes.h>
 
 #if OPENSSL_VERSION_NUMBER >= 0x0090800f
 #define USE_OPENSSL_RANDPOLL 1
@@ -167,9 +168,9 @@ crypt_set_iv(crypt_t *key, const uchar *iv, size_t ivlen)
 void
 stream_crypt(crypt_t *key, uchar *buf, size_t len)
 {
-  AES_ctr128_encrypt(buf, buf, len,
+  CRYPTO_ctr128_encrypt(buf, buf, len,
                      &key->key, key->ivec, key->ecount_buf,
-                     &key->pos);
+                     &key->pos, (block128_f)AES_encrypt);
 }
 
 /**
