@@ -11,3 +11,8 @@ See doc/ for more obfsproxy information.
 
 To report bugs or submit patches, please use the Tor Project bugtracker
 at trac.torproject.org.  Thanks!
+
+----
+recolic: dependency:
+
+sudo apt install libevent-dev libssl-dev
